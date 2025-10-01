@@ -27,7 +27,7 @@ class Profesor extends Thread {
         }
     }
 }
-
+//algo
 public class CabreoProfesores {
     public static void main(String[] args) {
         // Crear y lanzar hilos de profesores
