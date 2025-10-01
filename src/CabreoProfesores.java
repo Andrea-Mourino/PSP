@@ -13,7 +13,6 @@ class Profesor extends Thread {
     @Override
     public void run() {
         for (int nivel = 1; nivel <= limite; nivel++) {
-            // Simular tiempo de revisión
             try {
                 Thread.sleep(200 + random.nextInt(600)); // 200-800 ms
             } catch (InterruptedException e) {
