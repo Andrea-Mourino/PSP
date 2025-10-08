@@ -6,17 +6,32 @@ public class Tarea11 {
 
         int N = preguntarUsuario(); // valor por defecto
 
-        Ficha hilo1 = new Ficha("Hilo-1", N, 5);
+        Ficha hilo1 = new Ficha("Hilo-1", 1, N);
+
+        long inicio = System.currentTimeMillis();
+
         hilo1.start();
 
-        try {
-            hilo1.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while (hilo1.isAlive()) {
+            System.out.println(": [Control Central] La primera ficha aún no ha terminado su secuencia...");
+            try {
+                Thread.sleep(500); // revisar cada 500 ms
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
+        long fin = System.currentTimeMillis();
+        long total = fin - inicio;
+
+        System.out.println("--------------------------------------------------");
+        System.out.println("[Control Central] Todas las fichas han terminado.");
+        System.out.println("[Control Central] Tiempo total de la caída: " + total + " ms");
+        System.out.println("--------------------------------------------------");
 
 
     }
+
 
     public static int preguntarUsuario() {
         Scanner sc = new Scanner(System.in);
@@ -26,11 +41,12 @@ public class Tarea11 {
             valor = sc.nextInt();
             if (valor < 1) {
                 valor = 5;
+                System.out.println("Muy mal muchacho");
             } else {
-                System.out.println("Número inválido. Usando N=5 por defecto.");
+                System.out.println("Muy bien muchacho");
             }
         } catch (NumberFormatException e) {
-            System.out.println("Argumento no válido. Usando N=5 por defecto.");
+            System.out.println("Muy mal muchacho");
         } finally {
             sc.close();
         }
@@ -38,10 +54,8 @@ public class Tarea11 {
 
     }
 
-}
 
-
-class Ficha extends Thread {
+static class Ficha extends Thread {
     private String nombre;
     private int restantes;
     private int indice;
@@ -58,7 +72,7 @@ class Ficha extends Thread {
     public void run() {
 
         if (indice < restantes) {
-            siguiente = new Ficha("Hilo-" + (indice + 1), restantes, indice + 1);
+            siguiente = new Ficha("Hilo-" + (indice + 1), indice + 1, restantes);
             siguiente.start();
         }
 
@@ -85,4 +99,5 @@ class Ficha extends Thread {
     }
 
 
+}
 }
