@@ -4,7 +4,6 @@ public class Tarea14 {
         public static double capital = 1000.0;
     }
 
-    // Hilo de ingresos
     static class HiloIngresos extends Thread {
         @Override
         public void run() {
@@ -22,7 +21,6 @@ public class Tarea14 {
         }
     }
 
-    // Hilo de extracciones
     static class HiloExtracciones extends Thread {
         @Override
         public void run() {
@@ -40,7 +38,6 @@ public class Tarea14 {
         }
     }
 
-    // Método principal
     public static void main(String[] args) {
         HiloExtracciones extracciones = new HiloExtracciones();
         HiloIngresos ingresos = new HiloIngresos();
